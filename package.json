@@ -1,0 +1,52 @@
+{
+  "name": "cpuload-app",
+  "version": "1.0.0",
+  "description": "Proof-of-concept (POC) for a browser-based CPU load monitoring application",
+  "main": "bin/server/index.js",
+  "scripts": {
+    "build": "babel ./src -d bin --source-maps",
+    "test": "NODE_ENV=test jest -i --watchAll --coverage",
+    "dev": "nodemon --exec babel-node src/server/index.js",
+    "start": "node bin/server/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jleajones/cpuload-app.git"
+  },
+  "keywords": [
+    "cpu",
+    "node",
+    "express",
+    "react",
+    "jest",
+    "docker"
+  ],
+  "author": "j.leajones",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jleajones/cpuload-app/issues"
+  },
+  "homepage": "https://github.com/jleajones/cpuload-app#readme",
+  "dependencies": {
+    "body-parser": "^1.19.0",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "morgan": "^1.10.0",
+    "winston": "^3.2.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.8.4",
+    "@babel/core": "^7.9.6",
+    "@babel/node": "^7.8.7",
+    "@babel/preset-env": "^7.9.6",
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^2.5.1",
+    "jest": "^25.5.2",
+    "nodemon": "^2.0.3",
+    "prettier": "^2.0.5"
+  }
+}

@@ -1,0 +1,10 @@
+# Usually ignored globally but contains run configs for WebStorm
+!.idea
+.idea/*
+!.idea/runConfigurations
+
+
+.env
+/*.log
+/node_modules/
+/bin/
