@@ -1,6 +1,22 @@
 {
-  "presets": [
-    "next/babel",
-    ["@babel/preset-env", { "targets": { "node": "current" } }]
-  ]
+  "env": {
+    "test": {
+      "presets": [
+        [
+          "@babel/preset-env",
+          {
+            "modules": "commonjs",
+            "debug": false
+          }
+        ],
+        "next/babel"
+      ]
+    },
+    "development": {
+      "presets": [
+        "next/babel",
+        ["@babel/preset-env", { "targets": { "node": "current" } }]
+      ]
+    }
+  }
 }
