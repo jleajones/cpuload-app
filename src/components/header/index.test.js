@@ -8,9 +8,9 @@ describe('UI:component:', () => {
   });
 
   describe('[Header]', () => {
-    it('renders the header component', () => {
-      const { getByTestId } = render(<Component />);
-      expect(getByTestId('header')).toBeDefined();
+    it('has alert className', () => {
+      const { getByTestId } = render(<Component averageLoad={1.19} alerts={[]} recoveries={[]}/>);
+      expect(getByTestId('header').classList.length).toEqual(2);
     });
   });
 });

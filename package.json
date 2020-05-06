@@ -30,11 +30,13 @@
   "homepage": "https://github.com/jleajones/cpuload-app#readme",
   "dependencies": {
     "body-parser": "^1.19.0",
+    "chart.js": "^2.9.3",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "morgan": "^1.10.0",
     "next": "^9.3.6",
     "react": "^16.13.1",
+    "react-chartjs-2": "^2.9.0",
     "react-dom": "^16.13.1",
     "socket.io": "^2.3.0",
     "socket.io-client": "^2.3.0",

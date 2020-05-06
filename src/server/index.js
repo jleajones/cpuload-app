@@ -1,13 +1,11 @@
 import serverBuilder from './server';
 import logger from './utils/logger';
-import { Services } from './controllers';
+import dotenv from 'dotenv';
 
+dotenv.config()
 const listen = async () => {
   const server = await serverBuilder(logger);
   const port = 3000;
-
-  // wss.on('connection', Services.WebSocket.connection);
-  // wss.on('close', Services.WebSocket.close);
 
   server.on('close', () => {
     logger.info('shutting down...');

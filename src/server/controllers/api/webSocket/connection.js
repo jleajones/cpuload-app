@@ -1,31 +1,29 @@
 import logger from '../../../utils/logger';
 import os from 'os';
 
-export default (socket) => {
-  logger.info('WebSocket::connection', { id: socket.id });
+const WEBSOCKET_INTERVAL = 10000;
 
+const sendLoadData = (socket) => {
   const cpus = os.cpus();
-  const load = os.loadavg();
-  const loadAverage = load[0] / cpus.length;
+  const load = os.loadavg()[0];
+  const loadAverage = load / cpus.length;
+  const timeStamp = new Date(Date.now()).toUTCString();
+
   socket.send(
     JSON.stringify({
       cpus,
       load,
-      loadAverage
+      loadAverage,
+      timeStamp
     })
   );
+};
 
-  // send data every 10 secs
+export default (socket) => {
+  logger.info('WebSocket::connection', { id: socket.id });
+  sendLoadData(socket);
+
   setInterval(() => {
-    const cpus = os.cpus();
-    const load = os.loadavg();
-    const loadAverage = load[0] / cpus.length;
-    socket.send(
-      JSON.stringify({
-        cpus,
-        load,
-        loadAverage
-      })
-    );
-  }, 10000);
+    sendLoadData(socket);
+  }, WEBSOCKET_INTERVAL);
 };

@@ -1,0 +1,22 @@
+.header {
+  border-top: solid 10px #fff;
+  background-color: #008800;
+  color: #fff;
+  padding: 20px;
+  position: fixed;
+  width: calc(100% - 40px);
+  box-shadow: 1px 3px 8px rgba(0, 0, 0, 0.6);
+  z-index: 10;
+}
+
+.header h1 {
+  font-weight: normal;
+}
+
+.header span {
+    border-bottom: dotted 1px #fff;
+}
+
+.withAlert {
+  background-color: #880000;
+}

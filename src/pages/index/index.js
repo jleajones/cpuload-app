@@ -1,23 +1,46 @@
 import React, { useEffect, useState, useRef } from 'react';
 import io from 'socket.io-client';
+import Header from '../../components/header';
+import Chart from '../../components/chart';
+import Table from '../../components/table';
+
+import { checkMonitor, MAX_MONITORS } from '../../lib';
+import Dialog from '../../components/dialog';
 
 const Index = () => {
+  // TODO: New component for webSocket connection; useContext or custom hook
   const [connected, setConnected] = useState(false);
 
-  const [load, setLoad] = useState([]);
-  const [averageLoad, setAverageLoad] = useState([]);
-  const [cpuData, setCpuData] = useState([]);
+  const [showDialog, setShowDialog] = useState(false);
+  const [offsetTop, setOffsetTop] = useState(0);
+  const [windowHeight, setWindowHeight] = useState(500);
 
+  const [load, setLoad] = useState(0);
+  const [averageLoad, setAverageLoad] = useState(0);
+  const [cpuData, setCpuData] = useState([]);
+  const [monitor, setMonitor] = useState([]);
+
+  const [highCpu, setHighCpu] = useState(false);
+  const [alerts, setAlerts] = useState([]);
+  const [recoveries, setRecoveries] = useState([]);
+
+  const table = useRef({});
   const socket = useRef({});
 
   useEffect(() => {
-    socket.current = io('ws://localhost:3000');
+    window.addEventListener('resize', handleResize);
+    table.current = document.getElementById('table-content');
+    setOffsetTop(table.current.offsetTop);
+    setWindowHeight(window.innerHeight);
+
+    socket.current = io(process.env.WEBSOCKET_URL);
     socket.current.on('connected', () => {
       setConnected(true);
     });
 
     return () => {
       socket.current.close();
+      window.removeEventListener('resize', handleResize);
     };
   }, []);
 
@@ -31,125 +54,69 @@ const Index = () => {
     });
   }, [connected]);
 
+  useEffect(() => {
+    if (monitor.length === MAX_MONITORS) {
+      const { alertEvent, recoveryEvent } = checkMonitor(monitor, highCpu);
+      if (alertEvent) {
+        alerts.push(alertEvent);
+        setAlerts([...alerts]);
+        setHighCpu(true);
+        setShowDialog(true);
+      } else if (recoveryEvent) {
+        recoveries.push(recoveryEvent);
+        setRecoveries([...recoveries]);
+        setHighCpu(false);
+        setShowDialog(true);
+      }
+    }
+  }, [monitor]);
+
+  const handleResize = () => {
+    setWindowHeight(window.innerHeight);
+  };
+
   const handleMessage = (data) => {
+    monitor.push({ loadAverage: data.loadAverage, timeStamp: data.timeStamp });
     cpuData.unshift(data);
 
-    // message every 10 secs
-    // 6 messages === 1min
-    // 10mins === 60 message
-    // more than 10 mins worth, splice the extra off
-    // if (cpuData.length > 60) {
-    //   cpuData.splice(60, cpuData.length - 60);
-    // }
+    if (offsetTop < table.current.offsetTop) {
+      setOffsetTop(table.current.offsetTop);
+    }
 
+    // TODO: Investigate useReducer
     setLoad(data.load);
     setAverageLoad(data.loadAverage);
     setCpuData([...cpuData]);
+    if (monitor.length > MAX_MONITORS) {
+      monitor.splice(0, monitor.length - MAX_MONITORS);
+    }
+    setMonitor([...monitor]);
+  };
+
+  const handleHideDialog = () => {
+    setShowDialog(false);
   };
 
   return (
-    <div>
-      <h1>What's My Load</h1>
-      <h2># CPUs: {cpuData[0]?.cpus.length}</h2>
-      <h2>Current Load: {load}</h2>
-      <h2>Current Average CPU Load: {averageLoad}</h2>
-      <table data-testid="cpu-table">
-        <thead>
-          <tr>
-            <th> </th>
-            <th>model</th>
-            <th>speed</th>
-            <th>time (hrs)</th>
-          </tr>
-        </thead>
-        <tbody>
-          {cpuData.map((data, index) => {
-            if (index <= 59) {
-              return (
-                <tr key={`cpu-${index}`}>
-                  <td>{cpuData.length - index}</td>
-                  <td>
-                    <table>
-                      <tbody>
-                        {data.cpus.map((cpu, innerIndex) => (
-                          <tr key={`cpu-model-${innerIndex}`}>
-                            <td>{cpu.model}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </td>
-                  <td>
-                    <table>
-                      <tbody>
-                        {data.cpus.map((cpu, innerIndex) => (
-                          <tr key={`cpu-speed-${innerIndex}`}>
-                            <td>{cpu.speed}</td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </td>
-                  <td>
-                    <table>
-                      <tbody>
-                        {data.cpus.map((cpu, innerIndex) => (
-                          <tr key={`cpu-times-${innerIndex}`}>
-                            <td>
-                              <table>
-                                <thead>
-                                  <tr>
-                                    <th>Idle</th>
-                                    <th>IRQ</th>
-                                    <th>Nice</th>
-                                    <th>Sys</th>
-                                    <th>User</th>
-                                  </tr>
-                                </thead>
-                                <tbody>
-                                  <tr>
-                                    <td>
-                                      {parseFloat(
-                                        `${cpu.times.idle / 1000 / 60 / 60}`
-                                      ).toFixed(2)}
-                                    </td>
-                                    <td>
-                                      {parseFloat(
-                                        `${cpu.times.irq / 1000 / 60 / 60}`
-                                      ).toFixed(2)}
-                                    </td>
-                                    <td>
-                                      {parseFloat(
-                                        `${cpu.times.nice / 1000 / 60 / 60}`
-                                      ).toFixed(2)}
-                                    </td>
-                                    <td>
-                                      {parseFloat(
-                                        `${cpu.times.sys / 1000 / 60 / 60}`
-                                      ).toFixed(2)}
-                                    </td>
-                                    <td>
-                                      {parseFloat(
-                                        `${cpu.times.user / 1000 / 60 / 60}`
-                                      ).toFixed(2)}
-                                    </td>
-                                  </tr>
-                                </tbody>
-                              </table>
-                            </td>
-                          </tr>
-                        ))}
-                      </tbody>
-                    </table>
-                  </td>
-                </tr>
-              );
-            } else {
-              return null;
-            }
-          })}
-        </tbody>
-      </table>
+    <div data-testid="dashboard-page">
+      {showDialog && (
+        <Dialog
+          highCpu={highCpu}
+          alerts={alerts}
+          recoveries={recoveries}
+          hideDialog={handleHideDialog}
+        />
+      )}
+
+      <Header
+        cpuCount={cpuData[0]?.cpus.length}
+        totalLoad={load}
+        averageLoad={averageLoad}
+        alerts={alerts}
+        recoveries={recoveries}
+      />
+      {cpuData[0] && <Chart data={cpuData[0]} />}
+      <Table tableRef={table} windowHeight={windowHeight} cpuData={cpuData} />
     </div>
   );
 };

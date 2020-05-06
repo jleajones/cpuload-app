@@ -1,0 +1,7 @@
+.chart {
+  padding-top: 140px;
+  box-shadow: 0 -3px 8px rgba(0, 0, 0, 0.7);
+  position: relative;
+  z-index: 9;
+    background: #fff;
+}
