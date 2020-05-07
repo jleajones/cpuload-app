@@ -69,6 +69,9 @@ Clone Repo:<br />
 `cd` into directory<br />
 
 Run:<br />
+`nvm use`
+
+Run:<br />
 `npm install`
 
 Create `.env` file<br />
