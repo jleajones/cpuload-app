@@ -3,7 +3,7 @@
 Proof-of-concept (POC) for a browser-based CPU load monitoring application.
 
 - What is my computer's current average CPU load?
-- How did the average CPU load change over a 10 minute window?
+- How did the average CPU load change over a 10 minutes window?
 - Has my computer been under heavy CPU load for 2 minutes or more? When? How many times?
 - Has my computer recovered from heavy CPU load? When? How many times?
 
@@ -20,15 +20,15 @@ Proof-of-concept (POC) for a browser-based CPU load monitoring application.
 - [x] The front-end application should communicate with a local back-end service to retrieve CPU load average information
       from your computer (see below).
 - [x] The front-end application should retrieve CPU load information every 10 seconds.
-- [x] The front-end application should maintain a 10 minute window of historical CPU load information.
-  - [ ] Question: Should we cookie information from the previous visit or start fresh on every page load?
+- [x] The front-end application should maintain a 10 minutes window of historical CPU load information.
+  - [ ] Question: Should we save information from the previous visit in a cookie or start fresh on every page load?
 - [x] The front-end application should alert the user to high CPU load.
 - [x] The front-end application should alert the user when CPU load has recovered.
 
 ### High CPU Load
 
-- Alert: When average CPU is over 1 for 2 mins or more
-- Recovered: When average CPU Load drops below 1 for 2 mins or more
+- Alert: When average CPU is over 1 for 2 minutes or more
+- Recovered: When average CPU Load drops below 1 for 2 minutes or more
 
 ## TECH SPECS 🛠
 
@@ -45,18 +45,18 @@ Websocket Server emit messages to client every 10 seconds.
 
 #### Historical Data
 
-Fetching data every 10 seconds and needing to maintain 10mins of historical data means the client will need to display
+Fetching data every 10 seconds and needing to maintain 10 minutes of historical data means the client will need to display
 and keep track of 60 records maximum.
 
 #### Alerting
 
-When average CPU is over 1 for 2 mins or more
+When average CPU is over 1 for 2 minutes or more
 
 - 12 consecutive messages with average over 1
 
 #### Recovery
 
-When average CPU Load drops below 1 for 2 mins or more
+When average CPU Load drops below 1 for 2 minutes or more
 
 - if alert trigger
 - 12 consecutive messages with average under 1
@@ -116,15 +116,17 @@ Application support multiple run configurations.
 
 #### 1. Improve display of alerts and recoveries.
 
-#### 2. Better way to display information about each core.
+Maybe indicate how long before each alert recovered.
+
+#### 2.Display information about each core.
 
 ### Tech Infrastructure
 
 #### 1. Improve monitor algorithm.
 
-Can improve the performance by only checking the data points when the average load changes from above
-1 and below 1 or by improving the logic as to how we populate the data points to monitor. This way we are not checking 12 points every 10 secs when its not possible to have an
-alert or monitor.
+Can improve the performance by only checking the data points when the average load changes from > 1 and < 1 or by
+improving the logic as to how we populate the data points to monitor. This way we are not checking 12 points every 10
+secs when its not possible to have an alert or monitor.
 
 #### 1. Migrate to KOA.
 
@@ -134,7 +136,7 @@ Express has aged and has not been maintained properly.
 
 Allows for adding additional features
 
-#### 3. Improve test coverage, include server.
+#### 3. Improve test coverage.  Add test for the server side code.
 
 Improve Jest configuration to support testing in Node env.
 Write unit tests and integration tests? Server is light now, but if we add DB support and build out the feature could become necessary.
