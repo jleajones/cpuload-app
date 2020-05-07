@@ -1,0 +1,47 @@
+.tooltipContainer {
+  position: relative;
+  display: inline-block;
+}
+
+.tooltipContainer > div.hidden {
+  display: none;
+}
+.tooltipContainer > div:before {
+  content: ' ';
+  height: 0;
+  position: absolute;
+  width: 0;
+  left: 7px;
+  top: -12px;
+  border: 6px solid transparent;
+  border-bottom-color: #fff;
+}
+
+.tooltipContainer > div {
+  position: absolute;
+  z-index: 999;
+  background: #fff;
+  color: #666;
+  width: 200px;
+  top: 28px;
+  left: -10px;
+  padding: 10px;
+  font-size: 11px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  cursor: default;
+}
+
+.tooltipContainer > div ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tooltipContainer ul li {
+  border-bottom: solid 1px #e2e2e2;
+  padding: 6px 0;
+}
+
+.tooltipContainer ul li:last-child {
+  border-bottom: none;
+}

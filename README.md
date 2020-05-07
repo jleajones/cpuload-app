@@ -80,7 +80,7 @@ Application support multiple run configurations.
 
 - [x] local configuration w/ node 💚
   - [x] test configuration
-- [ ] container configuration w/ Docker 🐳
+- [x] container configuration w/ Docker 🐳
   - [ ] test configuration
 - [ ] production configuration
 
@@ -95,7 +95,8 @@ Application support multiple run configurations.
 
 #### Container
 
-TBD - Docker integration
+- Run with Docker
+  `docker-compose up`
 
 #### Production
 
@@ -116,6 +117,12 @@ TBD - Docker integration
 
 ### Tech Infrastructure
 
+#### 1. Improve monitor algorithm.
+
+Can improve the performance by only checking the data points when the average load changes from above
+1 and below 1 or by improving the logic as to how we populate the data points to monitor. This way we are not checking 12 points every 10 secs when its not possible to have an
+alert or monitor.
+
 #### 1. Migrate to KOA.
 
 Express has aged and has not been maintained properly.
@@ -132,4 +139,3 @@ Write unit tests and integration tests? Server is light now, but if we add DB su
 #### 4. PropTypes, Flow, TypeScript
 
 #### 5. CI/CD Integration
-

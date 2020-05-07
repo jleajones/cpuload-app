@@ -2,6 +2,7 @@ import styles from './chart.module.css';
 import React, { useEffect, useState } from 'react';
 
 import { Line } from 'react-chartjs-2';
+import { HIGH_CPU_LOAD } from '../../constants';
 
 const Chart = ({ data }) => {
   const [loadData, setData] = useState(null);
@@ -38,7 +39,7 @@ const Chart = ({ data }) => {
               pointBackgroundColor: (context) => {
                 const index = context.dataIndex;
                 const value = context.dataset.data[index];
-                return value > 1 ? '#880000' : '#008800';
+                return value > HIGH_CPU_LOAD ? '#880000' : '#008800';
               }
             }
           ]

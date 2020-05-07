@@ -25,8 +25,9 @@
 }
 
 .tableContainer table th {
-  padding: 20px 0 10px;
+  padding: 10px 0 10px;
   font-size: 14px;
+  color: #666;
 }
 
 .tableContainer table tr:nth-child(even) {

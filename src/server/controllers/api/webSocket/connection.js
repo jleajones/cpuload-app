@@ -1,7 +1,7 @@
-import logger from '../../../utils/logger';
 import os from 'os';
 
-const WEBSOCKET_INTERVAL = 10000;
+import logger from '../../../utils/logger';
+import {WEBSOCKET_INTERVAL} from "../../../../constants";
 
 const sendLoadData = (socket) => {
   const cpus = os.cpus();

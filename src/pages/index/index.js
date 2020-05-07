@@ -4,8 +4,9 @@ import Header from '../../components/header';
 import Chart from '../../components/chart';
 import Table from '../../components/table';
 
-import { checkMonitor, MAX_MONITORS } from '../../lib';
+import { checkMonitor } from '../../lib';
 import Dialog from '../../components/dialog';
+import {MAX_MONITORS} from "../../constants";
 
 const Index = () => {
   // TODO: New component for webSocket connection; useContext or custom hook

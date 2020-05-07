@@ -3,13 +3,13 @@ import React from 'react';
 import styles from './dialog.module.css';
 
 const Dialog = ({ highCpu, alerts, recoveries, hideDialog }) => {
-  let mode;
+  let mode = 'info';
   let content;
   if (highCpu) {
     mode = 'alert';
     content = (
       <p className={styles.alertText}>
-        New Alert: {new Date(alerts[0].timeStamp).toUTCString()}
+        New Alert! {new Date(alerts[0].timeStamp).toUTCString()}
       </p>
     );
   } else if (
@@ -36,7 +36,7 @@ const Dialog = ({ highCpu, alerts, recoveries, hideDialog }) => {
     <div className={`${styles.dialogContainer} ${styles[mode]}`}>
       <div>
         {content}
-        <button onClick={onClick}>close</button>
+        <button onClick={onClick}><span>X</span></button>
       </div>
     </div>
   );

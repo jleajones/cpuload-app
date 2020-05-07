@@ -16,6 +16,9 @@
   width: 60%;
   margin: 0 auto;
   padding: 20px 20px 15px 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .alert > div {
@@ -25,7 +28,7 @@
 
 .recovery > div {
   background: #008800;
-  color: lightgreen;
+  border-bottom: solid 10px #005500;
 }
 
 .alertText {
@@ -34,4 +37,28 @@
 
 .recoveryText {
   color: lightgreen;
+}
+
+.dialogContainer button {
+  background: #eee;
+  width: 30px;
+  height: 30px;
+  line-height: 20px;
+  border-radius: 15px;
+  text-align: center;
+  padding: 0;
+  cursor: pointer;
+  border: none;
+}
+
+.dialogContainer button:hover {
+  background: #fff;
+}
+
+.dialogContainer.alert button {
+  color: #880000;
+}
+
+.dialogContainer.recovery button {
+  color: #005500;
 }

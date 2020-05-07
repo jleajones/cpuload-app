@@ -1,5 +1,4 @@
-export const MAX_MONITORS = 12;
-export const HIGH_CPU_LOAD = 1;
+import {HIGH_CPU_LOAD, MAX_MONITORS} from "../constants";
 
 /**
  * @param {Object[]} monitor - data points to be evaluated

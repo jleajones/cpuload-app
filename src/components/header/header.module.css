@@ -13,8 +13,18 @@
   font-weight: normal;
 }
 
+.header > div {
+  font-size: 12px;
+  padding: 12px 0;
+}
+
 .header span {
-    border-bottom: dotted 1px #fff;
+  border-bottom: dotted 1px #fff;
+}
+
+.header span.clickable {
+  cursor: pointer;
+  position: relative;
 }
 
 .withAlert {

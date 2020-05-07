@@ -1,12 +1,11 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="TEST" type="js.build_tools.npm" singleton="false">
-    <package-json value="$PROJECT_DIR$/package.json" />
-    <command value="run" />
-    <scripts>
-      <script value="test" />
-    </scripts>
-    <node-interpreter value="project" />
-    <envs />
+  <configuration default="false" name="TEST" type="docker-deploy" factoryName="docker-compose.yml" server-name="Docker">
+    <deployment type="docker-compose.yml">
+      <settings>
+        <option name="commandLineOptions" value="--build" />
+        <option name="sourceFilePath" value="docker-compose.test.yml" />
+      </settings>
+    </deployment>
     <method v="2" />
   </configuration>
 </component>

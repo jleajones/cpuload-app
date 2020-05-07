@@ -6,9 +6,9 @@
   "scripts": {
     "build:server": "babel ./src -d bin --source-maps",
     "build:client": "next build",
-    "test": "NODE_ENV=test jest -i --watchAll --coverage",
+    "test": "NODE_ENV=test ./node_modules/.bin/jest --coverage",
     "dev": "nodemon --exec babel-node src/server/index.js",
-    "server": "NODE_ENV=production node bin/server/index.js"
+    "start": "NODE_ENV=production node bin/server/index.js"
   },
   "repository": {
     "type": "git",
@@ -29,10 +29,11 @@
   },
   "homepage": "https://github.com/jleajones/cpuload-app#readme",
   "dependencies": {
-    "body-parser": "^1.19.0",
     "chart.js": "^2.9.3",
+    "compression": "^1.7.4",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",
+    "helmet": "^3.22.0",
     "morgan": "^1.10.0",
     "next": "^9.3.6",
     "react": "^16.13.1",

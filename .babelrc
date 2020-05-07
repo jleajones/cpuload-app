@@ -17,6 +17,12 @@
         "next/babel",
         ["@babel/preset-env", { "targets": { "node": "current" } }]
       ]
+    },
+    "production": {
+      "presets": [
+        "next/babel",
+        ["@babel/preset-env", { "targets": { "node": "current" } }]
+      ]
     }
   }
 }

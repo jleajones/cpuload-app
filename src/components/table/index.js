@@ -1,7 +1,6 @@
 import React from 'react';
-
 import styles from './table.module.css';
-import { HIGH_CPU_LOAD } from '../../lib';
+import { HIGH_CPU_LOAD, MAX_HISTORY } from '../../constants';
 
 const Table = ({ cpuData, tableRef, windowHeight }) => {
   const height = tableRef.current?.offsetTop
@@ -24,7 +23,7 @@ const Table = ({ cpuData, tableRef, windowHeight }) => {
           </thead>
           <tbody>
             {cpuData.map((data, index) => {
-              if (index <= 59) {
+              if (index < MAX_HISTORY) {
                 return (
                   <tr
                     key={data.timeStamp}
