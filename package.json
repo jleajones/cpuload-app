@@ -6,7 +6,7 @@
   "scripts": {
     "build:server": "babel ./src -d bin --source-maps",
     "build:client": "next build",
-    "test": "NODE_ENV=test ./node_modules/.bin/jest --coverage",
+    "test": "NODE_ENV=test jest --coverage",
     "dev": "nodemon --exec babel-node src/server/index.js",
     "start": "NODE_ENV=production node bin/server/index.js"
   },

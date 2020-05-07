@@ -1,4 +1,4 @@
-import {HIGH_CPU_LOAD, MAX_MONITORS} from "../constants";
+import { HIGH_CPU_LOAD, MAX_MONITORS } from '../constants';
 
 /**
  * @param {Object[]} monitor - data points to be evaluated

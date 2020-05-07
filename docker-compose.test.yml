@@ -7,9 +7,12 @@ services:
     ports:
       - 3000:3000
     volumes:
-      - .:/usr/app:delegated
-      - ./package.json:/usr/app/package.json
-      - ./package-lock.json:/usr/app/package-lock.json
+      - .:/usr/node/app:delegated
+      - ./package.json:/usr/node/package.json
+      - ./package-lock.json:/usr/node/package-lock.json
+      - notused:/usr/node/app/node_modules
     environment:
       - NODE_ENV=test
       - SERVICE_NAME=${SERVICE_NAME}
+volumes:
+  notused:

@@ -1,9 +1,7 @@
-.git
-/.idea
-*Dockerfile*
-*docker-compose*
-/node_modules
-/bin
-/docker-data/db-data
-*.log
-q
+*
+!package*.json
+!config
+!src
+!.babelrc
+!.env
+!*.config.js
